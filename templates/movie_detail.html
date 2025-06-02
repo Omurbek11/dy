@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{ movie.title }} - Кинотеатр МИР{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">{{ movie.title }}</h1>
+    <div class="row">
+        <div class="col-md-4">
+            {% if movie.poster %}
+                <img src="{{ movie.poster.url }}" class="img-fluid rounded" alt="{{ movie.title }}">
+            {% else %}
+                <img src="[invalid url, do not cite]" class="img-fluid rounded" alt="{{ movie.title }}">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="content-block">
+                <p><strong>Описание:</strong> {{ movie.description }}</p>
+                <p><strong>Жанр:</strong> {{ movie.genre }}</p>
+                <p><strong>Продолжительность:</strong> {{ movie.duration }} мин</p>
+                <p><strong>Возрастной рейтинг:</strong> {{ movie.age_rating }}</p>
+                <a href="{% url 'sessions' %}?movie={{ movie.id }}" class="btn btn-primary">Купить билеты</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

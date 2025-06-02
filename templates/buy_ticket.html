@@ -1,0 +1,33 @@
+```html
+{% extends 'base.html' %}
+{% block title %}Купить билет — Кинотеатр МИР{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Купить билет</h1>
+    <div class="content-block">
+        <h2>{{ session.movie.title }}</h2>
+        <p><strong>Дата и время:</strong> {{ session.date_time }}</p>
+        <p><strong>Зал:</strong> {{ session.hall }}</p>
+        <p><strong>Язык:</strong> {{ session.language }}</p>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="seat">Выберите место:</label>
+                <select class="form-control" id="seat" name="seat" required>
+                    <!-- Placeholder для мест, можно добавить логику -->
+                    <option value="A1">Ряд A, Место 1</option>
+                    <option value="A2">Ряд A, Место 2</option>
+                    <option value="B1">Ряд Б, Место 1</option>
+                    ...
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Количество билетов:</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="10" value="1" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Купить</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+```

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Главная - Кинотеатр МИР{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Добро пожаловать в Кинотеатр МИР!</h1>
+    <div id="movieCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            {% for movie in movies %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    {% if movie.poster %}
+                        <img src="{{ movie.poster.url }}" class="d-block w-100" alt="{{ movie.title }}">
+                    {% else %}
+                        <img src="[invalid url, do not cite] class="d-block w-100" alt="{{ movie.title }}">
+                    {% endif %}
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ movie.title }}</h5>
+                        <p>{{ movie.description|truncatewords:10 }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="carousel-item active">
+                    <img src="[invalid url, do not cite] class="d-block w-100" alt="Нет фильмов">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Нет фильмов</h5>
+                        <p>Добавьте фильмы в админке</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#movieCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Предыдущий</span>
+        </a>
+        <a class="carousel-control-next" href="#movieCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Следующий</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

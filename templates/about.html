@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}О кинотеатре - Кинотеатр МИР{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">О кинотеатре МИР</h1>
+    <div class="content-block">
+        <p>Кинотеатр “МИР” – первый цифровой кинотеатр в городе Бишкек, оснащённый передовым кинопроекционным оборудованием от мирового лидера Christie (Канада) и звуковой системой Dolby Digital (США). Наши залы спроектированы для максимального комфорта: широкие проходы между рядами и кресла от одного из лучших мировых производителей обеспечивают идеальные условия для просмотра.</p>
+        <p>Киноэкраны обладают высокими характеристиками: широкие углы обзора, яркость и контрастность изображения. Кинотеатр располагает 6 залами: Зал 1 – 275 мест, Зал 2 – 148 мест и 4 зала для отечественных фильмов. Большие залы поддерживают показ в 3D формате. В кинобаре вы найдёте широкий выбор напитков, десертов, закусок и попкорна, а в фойе можно отдохнуть на уютных диванах. На территории работает кафе Этно с блюдами международной кухни.</p>
+    </div>
+    
+    <h2 class="mt-5">Наши залы</h2>
+    {% if photos %}
+    <div id="photoCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            {% for photo in photos %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    {% if photo.image %}
+                        <img src="{{ photo.image.url }}" class="d-block w-100" alt="{{ photo.caption|default:'Фото кинотеатра' }}">
+                    {% else %}
+                        <img src="[invalid url, do not cite] class="d-block w-100" alt="Фото кинотеатра">
+                    {% endif %}
+                    <div class="carousel-caption">
+                        {% if photo.caption %}
+                            <p>{{ photo.caption }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#photoCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Предыдущий</span>
+        </a>
+        <a class="carousel-control-next" href="#photoCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Следующий</span>
+        </a>
+    </div>
+    {% else %}
+        <p class="text-muted">Фотографии пока отсутствуют.</p>
+    {% endif %}
+</div>
+{% endblock %}

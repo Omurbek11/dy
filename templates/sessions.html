@@ -1,0 +1,29 @@
+```html
+{% extends 'base.html' %}
+{% block title %}Сеансы — Кинотеатр МИР{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Сеансы</h1>
+    {% if sessions %}
+        <div class="row">
+            {% for session in sessions %}
+                <div class="col-md-6 mb-4">
+                    <div class="movie-card">
+                        <div class="card-body">
+                            <h5>{{ session.movie.title }}</h5>
+                            <p><strong>Дата и время:</strong> {{ session.date_time }}</p>
+                            <p><strong>Зал:</strong> {{ session.hall }}</p>
+                            <p><strong>Язык:</strong> {{ session.language }}</p>
+                            <a href="{% url 'buy-ticket' session.id %}" class="btn btn-primary">Купить билет</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">Сеансы отсутствуют.</p>
+    {% endif %}
+</div>
+{% endblock %}
+```

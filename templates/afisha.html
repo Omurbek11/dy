@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Афиша - Кинотеатр МИР{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Афиша</h1>
+    <div class="row">
+        {% for movie in page_obj %}
+            <div class="col-md-4 mb-4">
+                <div class="movie-card">
+                    <a href="{% url 'movie_detail' movie.pk %}">
+                        {% if movie.poster %}
+                            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                        {% else %}
+                            <img src="[invalid url, do not cite]" alt="{{ movie.title }}">
+                        {% endif %}
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.title }}</h5>
+                        <p><strong>Возраст:</strong>: {{ movie.age_rating }}</p>
+                        <p><strong>Жанр:</strong>: {{ movie.genre }}</p>
+                        <p><strong>Продолжительность:</strong>: {{ movie.duration }} мин</p></p>
+                        <a href="{% url 'sessions' %}?movie={{ movie.id }}" class="btn btn-primary">Купить билеты</a>
+                    </p></div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Фильмы отсутствуют.</p>
+        {% endfor %}
+    </div>
+    <div class="pagination mt-4">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="btn btn-outline-primary">« Первая</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-primary">Предыдущая</a>
+            {% endif %}
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-primary">Следующая</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-primary">Последняя »</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock %}

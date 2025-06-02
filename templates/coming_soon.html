@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Скоро в кино - Кинотеатр МИР{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Скоро в кино</h1>
+    <div class="row">
+        {% for movie in coming_soon %}
+            <div class="col-md-4 mb-4">
+                <div class="movie-card">
+                    {% if movie.poster %}
+                        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                    {% else %}
+                        <img src="[invalid url, do not cite] alt="{{ movie.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.title }}</h5>
+                        <p class="card-text">{{ movie.description|truncatewords:20 }}</p>
+                        <p><strong>Дата выхода:</strong> {{ movie.release_date|date:"d.m.Y" }}</p>
+                        {% if movie.trailer_url %}
+                            <a href="{{ movie.trailer_url }}" class="btn btn-primary" target="_blank">Смотреть трейлер</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Фильмы отсутствуют.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
